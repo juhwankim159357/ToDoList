@@ -1,7 +1,3 @@
-var ToDoList = new Array();
-var DoneList = new Array();
-var fs = require('fs');
-
 const Sequelize = require('sequelize');
 var sequelize = new Sequelize('dc4v31vvi4hcdn','kbpehfwtapmzoz','0c46c7c31aeca1defabe932df1f2318e93f679ff08de7180c76b8d47e15f3388',{
     host:'ec2-184-73-209-230.compute-1.amazonaws.com',
