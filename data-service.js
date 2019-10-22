@@ -80,13 +80,22 @@ exports.getAllDoneList = function(){
 };  
 
 exports.addToDoList = function(ToDoListData) {
-    ToDoList.push(ToDoListData);
-    return new Promise(function(resolve, reject) {
-        if (ToDoList.length != 0) {
-            resolve(ToDoList);    
-        }
-        else {
-            reject("no results returned");
-        }
-    })
+    return new Promise((resolve, reject) => {
+        sequelize.sync().then(() => {
+            for (let x in ToDoListData) {
+                if(ToDoListData[x] == ""){
+                    ToDoListData[x] = null;
+                }
+            }
+            resolve(ToDoList.create({
+                Listnum: ToDoListData.Listnum,
+                Listname: ToDoListData.Listname,
+                Description: ToDoListData.Description,
+                }));
+            }).catch(() => {
+                reject("unable to create To Do List.");
+            });
+        }).catch(() => {
+            reject("unable to create To Do List.");
+    });
 };
