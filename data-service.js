@@ -75,3 +75,16 @@ exports.addToDoList = function(ToDoListData) {
             reject("unable to create To Do List.");
     });
 };
+
+exports.deleteListByNum = function(ListNum){
+    return new Promise((resolve, reject) => {
+        sequelize.sync().then(() => {
+            resolve(ToDoList.destroy({
+                where:{
+                    Listnum: ListNum
+                }}));
+        }).catch((err) => {
+            reject();
+        });
+    });
+};
