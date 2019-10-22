@@ -44,9 +44,23 @@ app.get("/", (req, res) => {
 
 app.get('/ToDoList', (req, res) => {
     dataService.getAllToDoList()
+    .then((data) => {
+        if (data.length > 0) { res.render("ToDoList", {ToDoList:data}) 
+        }
+        else{
+            res.render("ToDoList", {message: "NO TO DO LIST"})
+        }
+    })
+    .catch(() => res.render("ToDoList", {message: "error on dataservice"}))
+});
+    
+    /*
+    dataService.getAllToDoList()
         .then((data) => res.json(data))
         .catch((err) => res.json({"message": err}))
-});
+    */
+
+
 
 app.get('/DoneList', (req, res) => {
     dataService.getAllDoneList()
