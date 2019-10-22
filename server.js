@@ -82,7 +82,3 @@ dataService.initialize()
     console.log("There was an error initializing");
 })
 
-
-// for push forcely
-
-// to check git
