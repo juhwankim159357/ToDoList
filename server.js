@@ -63,7 +63,7 @@ app.get('/ToDoList/add', (req, res) => {
     res.render("addToDoList");
 });
 
-app.get('/ToDoList/delete/:Listnum', (req, res) => {
+app.get('/ToDoList/delete/:ListNum', (req, res) => {
     dataService.deleteListByNum(req.params.ListNum)
     .then((data)=> res.redirect('/ToDoList'))
     .catch(() => res.status(500).send("Unable to remove list / THERE IS NO LIST"))
