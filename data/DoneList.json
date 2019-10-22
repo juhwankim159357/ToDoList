@@ -1,5 +1,7 @@
 [
     {
-        "Name": "Test"
+        "Donenum": "!",
+        "DoneName": "Test",
+        "Description": "TEst"
     }
 ]

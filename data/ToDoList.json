@@ -1,11 +1,7 @@
 [
     {
+        "Listnum": "1",
         "Listname": "TEST",
         "Description": "TEST DES"
-    },
-
-    {
-        "ListName": "TEST2",
-        "Description": "TEST DES2"
     }
 ]
