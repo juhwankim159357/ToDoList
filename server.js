@@ -53,14 +53,6 @@ app.get('/ToDoList', (req, res) => {
     })
     .catch(() => res.render("ToDoList", {message: "error on dataservice"}))
 });
-    
-    /*
-    dataService.getAllToDoList()
-        .then((data) => res.json(data))
-        .catch((err) => res.json({"message": err}))
-    */
-
-
 
 app.get('/DoneList', (req, res) => {
     dataService.getAllDoneList()
@@ -68,8 +60,8 @@ app.get('/DoneList', (req, res) => {
         .catch((err) => res.json({"message": err}))
 });
 
-app.get('/addToDoList', (req, res) => {
-    res.sendFile(path.join(__dirname+"/views/addToDoList.html"));
+app.get('/ToDoList/add', (req, res) => {
+    res.render("addToDoList");
 });
 
 app.get('*', (req, res) => {
