@@ -4,20 +4,14 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                    <th >Employee&nbsp;Num</th>
-                    <th>Full&nbsp;Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Manager&nbsp;ID</th>
-                    <th>Status</th>
-                    <th>Department</th>
-                    <th>Hired&nbsp;On</th>
+                    <th>NUMBER</th>
+                    <th>NAME</th>
+                    <th>DESCRIPTION</th>
                 </thead>
                 <tbody>
                 {{#each ToDoList}}
                 <tr>
                     <td>{{this.Listnum}}</td>
-                    <td><a href="/ToDoList/{{this.Listnum}}">{{this.Listnum}}</a></td>
                     <td>{{this.Listname}}</td>
                     <td>{{this.Description}}</td>
                 </tr>
