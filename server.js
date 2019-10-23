@@ -23,6 +23,14 @@ app.use(function(req, res, next) {
     next();
 });  
 
+const ensureLogin = (req, res, next) => {
+    if(!req.session.user){
+        res.redirect("/login");
+    } else {
+        next();
+    }
+};
+
 app.engine('.hbs',exphbs({
     extname:'.hbs', 
     defaultLayout:'main',
