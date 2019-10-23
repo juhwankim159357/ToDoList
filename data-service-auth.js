@@ -19,13 +19,13 @@ var User; // to be defined on new connection (see initialize)
 
 module.exports.initialize = function(){
     return new Promise((resolve, reject) => {
-        let db = mongoose.createConnection("mongodb+srv://JuhwanKim:Wnghks159357!@cluster0-ejeyc.mongodb.net/test?retryWrites=true&w=majority");
+        let db = mongoose.createConnection("mongodb+srv://Juhwankim_admin:159357@cluster0-ejeyc.mongodb.net/auth?retryWrites=true&w=majority");
 
         db.on('error', (err)=>{
             reject(err); // reject the promise with the provided error
         });
         db.once('open', ()=>{
-           User = db.model("users", userSchema);
+           User = db.model("Users", userSchema);
            resolve();
         });
     });
