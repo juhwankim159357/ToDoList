@@ -13,7 +13,7 @@ app.use(express.static('public'));
 
 app.use(clientSessions({
     cookieName: "session", 
-    secret: "web322_a6",
+    secret: "todolist",
     duration: 3 * 60 * 1000, // 3minutes
     activeDuration: 5* 1000 * 60 
 }));
@@ -91,11 +91,6 @@ app.get('/ToDoList/delete/:ListNum', (req, res) => {
     .catch(() => res.status(500).send("Unable to remove list / THERE IS NO LIST"))
 });
 
-app.get('*', (req, res) => {
-    //res.send("Page Not Found");
-    res.status(404);
-    res.redirect("https://cdn-images-1.medium.com/max/1600/1*9APgHrP6f5sEfZJesaZlrg.png");
-});
 
 app.post('/ToDoList/add', function(req, res){
     dataService.addToDoList(req.body)
@@ -146,6 +141,13 @@ app.post('/register', (req, res) => {
     }).catch((err) => {
         res.render('register', {errorMessage: err, userName: req.body.userName});
     })
+});
+
+
+app.get('*', (req, res) => {
+    //res.send("Page Not Found");
+    res.status(404);
+    res.redirect("https://cdn-images-1.medium.com/max/1600/1*9APgHrP6f5sEfZJesaZlrg.png");
 });
 
 // setup http server to listen on HTTP_PORT
