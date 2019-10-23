@@ -1,13 +1,27 @@
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");;
 var app = express();
+var clientSessions = require("client-sessions");
 var dataService = require('./data-service.js');
+var dataServiceAuth = require('./data-service-auth.js');
 var bodyParser = require("body-parser");
 var exphbs = require('express-handlebars');
 
 app.use(bodyParser.urlencoded({extend: true}));
 
 app.use(express.static('public')); 
+
+app.use(clientSessions({
+    cookieName: "session", 
+    secret: "web322_a6",
+    duration: 3 * 60 * 1000, // 3minutes
+    activeDuration: 5* 1000 * 60 
+}));
+
+app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    next();
+});  
 
 app.engine('.hbs',exphbs({
     extname:'.hbs', 
@@ -82,7 +96,49 @@ app.post('/ToDoList/add', function(req, res){
         res.json({'message': err})
     })
 });
+app.get('/login', (req, res) => {
+    res.render('login');
+});
 
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+
+
+app.get('/logout', (req, res) => {
+    req.session.reset();
+    res.redirect('/');
+});
+
+app.get('/userHistory', ensureLogin, (req, res) => {
+    res.render('userHistory');
+});
+
+app.post('/login', (req, res) => {
+    req.body.userAgent = req.get('User-Agent');
+
+    dataServiceAuth.checkUser(req.body)
+    .then((user) => {
+        req.session.user = {
+            userName: user.userName,
+            email: user.email,
+            loginHistory: user.loginHistory
+        }
+        res.redirect('/employees');
+    }).catch((err) => {
+        res.render('login', {errorMessage: err, userName: req.body.userName});
+    });
+});
+
+app.post('/register', (req, res) => {
+    dataServiceAuth.registerUser(req.body)
+    .then((value) => {
+        res.render('register', {successMessage: "User created"});
+    }).catch((err) => {
+        res.render('register', {errorMessage: err, userName: req.body.userName});
+    })
+});
 
 // setup http server to listen on HTTP_PORT
 dataService.initialize()
