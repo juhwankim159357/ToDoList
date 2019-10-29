@@ -15,11 +15,11 @@ var userSchema = new Schema({
     }]
 });
 
-var User; // to be defined on new connection (see initialize)
+let User; // to be defined on new connection (see initialize)
 
 module.exports.initialize = function(){
     return new Promise((resolve, reject) => {
-        let db = mongoose.createConnection("mongodb+srv://Juhwankim_admin:159357@cluster0-ejeyc.mongodb.net/auth?retryWrites=true&w=majority");
+        let db = mongoose.createConnection("mongodb://juhwankim:159357@todolist-ejeyc.mongodb.net/todolistauth?retryWrites=true&w=majority");
 
         db.on('error', (err)=>{
             reject(err); // reject the promise with the provided error
@@ -29,7 +29,7 @@ module.exports.initialize = function(){
            resolve();
         });
     });
-}
+};
 
 module.exports.registerUser = function (userData){
     return new Promise(function (resolve, reject) {
